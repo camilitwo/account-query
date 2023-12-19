@@ -1,5 +1,6 @@
 server:
   port: 5001
+
 spring:
   jpa:
     database-platform: org.hibernate.dialect.MySQL8Dialect
@@ -7,20 +8,24 @@ spring:
     hibernate:
       ddl-auto: update
   datasource:
-    url: jdbc:mysql://localhost:3306/bankingAccount?createDatabaseIfNotExist=true&useSSL=false&allowPublicKeyRetrieval=true
-    username: cgonzalez
-    password: Massu$$2023
+    url: jdbc:mysql://localhost:3306/bankingAccount?createDatabaseIfNotExist=true
+    username: "root"
+    password: "Massu$2023"
   kafka:
     listener:
-      ack-mode: manual
+      ack-mode: MANUAL_IMMEDIATE
     consumer:
-        bootstrap-servers: localhost:9092
-        group-id: bankaccConsumer
-        auto-offset-reset: earliest
-        key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
-        value-deserializer: org.springframework.kafka.support.serializer.JsonDeserializer
-        properties:
-            spring:
-                json:
-                    trusted:
-                        packages: '*'
+      bootstrap-servers:
+      - localhost:9092
+      group-id: bankaccConsumer
+      auto-offset-reset: earliest
+      key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+      value-deserializer: org.springframework.kafka.support.serializer.JsonDeserializer
+      properties:
+        spring:
+          json:
+            trusted:
+              packages: '*'
+logging:
+  level:
+    kafka: DEBUG
